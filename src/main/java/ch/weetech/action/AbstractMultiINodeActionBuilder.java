@@ -29,7 +29,7 @@ public abstract class AbstractMultiINodeActionBuilder<T extends Action, K> exten
      * </pre>
      */
     public K addNode(String node) {
-        if (node == null || node.isEmpty()) {
+        if (node != null && !node.isEmpty()) {
             nodes.add(node);
         }
         return (K) this;
