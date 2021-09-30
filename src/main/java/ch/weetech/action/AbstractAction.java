@@ -104,7 +104,6 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
 	}
 	
     protected String buildURI(ElasticsearchVersion elasticsearchVersion) {
-    	System.out.println("building uri");
         StringBuilder sb = new StringBuilder();
 
         try {
@@ -113,6 +112,7 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
             	
                 sb.append(URLEncoder.encode(indexName, CHARSET));
 
+                /*
                 //String commandExtension = getURLCommandExtension(elasticsearchVersion);
                 String commandExtension = null;
 
@@ -120,6 +120,7 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
                 if (commandExtension != null && !commandExtension.isEmpty()) {
                     sb.append("/").append(URLEncoder.encode(commandExtension, CHARSET));
                 }
+                */
 
                 //if (StringUtils.isNotBlank(typeName)) {
                 if (typeName != null && !typeName.isEmpty()) {
@@ -161,6 +162,7 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
 
         if (!cleanApiParameters.isEmpty()) {
             queryString.append("/").append(Joiner.on(',').join(cleanApiParameters));
+            log.info("queryString {}", queryString.toString());
         }
 
         queryString.append("?");
