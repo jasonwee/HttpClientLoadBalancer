@@ -32,6 +32,10 @@ public class Get extends SingleResultAbstractDocumentTargetedAction {
             this.type("_all");
         }
 
+        public Builder(String path) {
+            this.path(path);
+        }
+
         public Get build() {
             return new Get(this);
         }
