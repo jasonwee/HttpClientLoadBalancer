@@ -162,7 +162,6 @@ public class JwHttpClient extends AbstractJwClient {
     private <T extends JwResult> T deserializeResponse(HttpResponse response, final HttpRequest httpRequest, Action<T> clientRequest) throws IOException {
         StatusLine statusLine = response.getStatusLine();
         try {
-        	System.out.println(EntityUtils.toString(response.getEntity()));
             return clientRequest.createNewElasticSearchResult(
                     response.getEntity() == null ? null : EntityUtils.toString(response.getEntity()),
                     statusLine.getStatusCode(),
