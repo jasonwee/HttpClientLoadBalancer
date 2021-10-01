@@ -246,7 +246,7 @@ public class ClientConfig {
             this.connTimeout = connTimeout;
             return (K) this;
         }
-        
+
         public K readTimeout(int readTimeout) {
             this.readTimeout = readTimeout;
             return (K) this;
