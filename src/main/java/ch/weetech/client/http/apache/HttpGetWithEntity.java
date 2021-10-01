@@ -6,7 +6,7 @@ import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
 
 public class HttpGetWithEntity extends HttpEntityEnclosingRequestBase {
-	
+
     public HttpGetWithEntity() {
         super();
     }
