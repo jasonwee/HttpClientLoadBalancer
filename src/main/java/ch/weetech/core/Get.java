@@ -3,7 +3,7 @@ package ch.weetech.core;
 import ch.weetech.action.SingleResultAbstractDocumentTargetedAction;
 
 public class Get extends SingleResultAbstractDocumentTargetedAction {
-	
+
     protected Get(Builder builder) {
         super(builder);
     }
