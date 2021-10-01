@@ -36,19 +36,19 @@ import ch.weetech.client.http.apache.HttpDeleteWithEntity;
 import ch.weetech.client.http.apache.HttpGetWithEntity;
 
 public class JwHttpClient extends AbstractJwClient {
-	
-	private final static Logger log = LoggerFactory.getLogger(JwHttpClient.class);
-	
-	protected ContentType requestContentType = ContentType.APPLICATION_JSON.withCharset("utf-8");
-	
-	private CloseableHttpClient httpClient;
+
+    private final static Logger log = LoggerFactory.getLogger(JwHttpClient.class);
+
+    protected ContentType requestContentType = ContentType.APPLICATION_JSON.withCharset("utf-8");
+
+    private CloseableHttpClient httpClient;
     private CloseableHttpAsyncClient asyncClient;
-    
+
     private HttpClientContext httpClientContextTemplate;
-    
+
     private ElasticsearchVersion elasticsearchVersion = ElasticsearchVersion.UNKNOWN;
-	
-	
+
+
     public void setHttpClient(CloseableHttpClient httpClient) {
         this.httpClient = httpClient;
     }
@@ -56,20 +56,20 @@ public class JwHttpClient extends AbstractJwClient {
     public void setAsyncClient(CloseableHttpAsyncClient asyncClient) {
         this.asyncClient = asyncClient;
     }
-    
+
     public void setGson(Gson gson) {
         this.gson = gson;
     }
-    
+
     public void setHttpClientContextTemplate(HttpClientContext httpClientContext) {
         this.httpClientContextTemplate = httpClientContext;
     }
 
-	@Override
-	public <T extends JwResult> T execute(Action<T> clientRequest) throws IOException {
-		return execute(clientRequest, null);
-	}
-	
+    @Override
+    public <T extends JwResult> T execute(Action<T> clientRequest) throws IOException {
+        return execute(clientRequest, null);
+    }
+
     public <T extends JwResult> T execute(Action<T> clientRequest, RequestConfig requestConfig) throws IOException {
         HttpUriRequest request = prepareRequest(clientRequest, requestConfig);
         CloseableHttpResponse response = null;
@@ -88,7 +88,7 @@ public class JwHttpClient extends AbstractJwClient {
             }
         }
     }
-    
+
     protected <T extends JwResult> HttpUriRequest prepareRequest(final Action<T> clientRequest, final RequestConfig requestConfig) {
         String elasticSearchRestUrl = getRequestURL(getNextServer(), clientRequest.getURI(elasticsearchVersion));
         HttpUriRequest request = constructHttpMethod(clientRequest.getRestMethodName(), elasticSearchRestUrl, clientRequest.getData(gson), requestConfig);
@@ -97,13 +97,13 @@ public class JwHttpClient extends AbstractJwClient {
 
         // add headers added to action
         for (Entry<String, Object> header : clientRequest.getHeaders().entrySet()) {
-        	System.out.println("add header=" + header.getKey());
+            System.out.println("add header=" + header.getKey());
             request.addHeader(header.getKey(), header.getValue().toString());
         }
 
         return request;
     }
-    
+
     protected CloseableHttpResponse executeRequest(HttpUriRequest request) throws IOException {
         if (httpClientContextTemplate != null) {
             return httpClient.execute(request, createContextInstance());
@@ -111,7 +111,7 @@ public class JwHttpClient extends AbstractJwClient {
 
         return httpClient.execute(request);
     }
-    
+
     protected HttpClientContext createContextInstance() {
         HttpClientContext context = HttpClientContext.create();
         context.setCredentialsProvider(httpClientContextTemplate.getCredentialsProvider());
@@ -119,7 +119,7 @@ public class JwHttpClient extends AbstractJwClient {
 
         return context;
     }
-    
+
     protected HttpUriRequest constructHttpMethod(String methodName, String url, String payload, RequestConfig requestConfig) {
         HttpUriRequest httpUriRequest = null;
 
@@ -158,7 +158,7 @@ public class JwHttpClient extends AbstractJwClient {
 
         return httpUriRequest;
     }
-    
+
     private <T extends JwResult> T deserializeResponse(HttpResponse response, final HttpRequest httpRequest, Action<T> clientRequest) throws IOException {
         StatusLine statusLine = response.getStatusLine();
         try {
