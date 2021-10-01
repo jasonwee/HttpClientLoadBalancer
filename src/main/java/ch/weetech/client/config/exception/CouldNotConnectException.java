@@ -3,7 +3,7 @@ package ch.weetech.client.config.exception;
 import java.io.IOException;
 
 public class CouldNotConnectException extends IOException {
-	
+
     private final String host;
 
     public CouldNotConnectException(String host, Throwable cause) {
