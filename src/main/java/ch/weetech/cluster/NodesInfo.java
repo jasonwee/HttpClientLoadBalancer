@@ -4,7 +4,7 @@ import ch.weetech.action.AbstractMultiINodeActionBuilder;
 import ch.weetech.action.GenericResultAbstractAction;
 
 public class NodesInfo extends GenericResultAbstractAction {
-	
+
     protected NodesInfo(Builder builder) {
         super(builder);
     }
@@ -13,8 +13,7 @@ public class NodesInfo extends GenericResultAbstractAction {
     public String getRestMethodName() {
         return "GET";
     }
-	
-	
+
     public static class Builder extends AbstractMultiINodeActionBuilder<NodesInfo, Builder> {
 
         public Builder withSettings() {
