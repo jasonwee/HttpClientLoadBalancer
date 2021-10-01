@@ -41,10 +41,10 @@ import ch.weetech.client.config.idle.IdleConnectionReaper;
 import ch.weetech.client.http.JwHttpClient;
 
 public class JwClientFactory {
-	
+
     final static Logger log = LoggerFactory.getLogger(JwClientFactory.class);
     private HttpClientConfig httpClientConfig;
-    
+
     public JwClient getObject() {
         JwHttpClient client = new JwHttpClient();
 
@@ -105,7 +105,7 @@ public class JwClientFactory {
 
         return client;
     }
-    
+
     private CloseableHttpClient createHttpClient(HttpClientConnectionManager connectionManager) {
         return configureHttpClient(
                 HttpClients.custom()
@@ -116,7 +116,7 @@ public class JwClientFactory {
                         .setDefaultCredentialsProvider(httpClientConfig.getCredentialsProvider())
         ).build();
     }
-    
+
     private CloseableHttpAsyncClient createAsyncHttpClient(NHttpClientConnectionManager connectionManager) {
         return configureHttpClient(
                 HttpAsyncClients.custom()
@@ -127,12 +127,12 @@ public class JwClientFactory {
                         .setDefaultCredentialsProvider(httpClientConfig.getCredentialsProvider())
         ).build();
     }
-    
+
     // Extension point
     protected NodeChecker createNodeChecker(JwHttpClient client, HttpClientConfig httpClientConfig) {
         return new NodeChecker(client, httpClientConfig);
     }
-    
+
     /**
      * Extension point
      * <p>
@@ -141,8 +141,8 @@ public class JwClientFactory {
      * <pre>
      * final JestClientFactory factory = new JestClientFactory() {
      *    {@literal @Override}
-     *  	protected HttpClientBuilder configureHttpClient(HttpClientBuilder builder) {
-     *  		return builder.setDefaultHeaders(...);
+     *  protected HttpClientBuilder configureHttpClient(HttpClientBuilder builder) {
+     *  	return builder.setDefaultHeaders(...);
      *    }
      * }
      * </pre>
@@ -157,7 +157,7 @@ public class JwClientFactory {
     protected HttpAsyncClientBuilder configureHttpClient(final HttpAsyncClientBuilder builder) {
         return builder;
     }
-    
+
     // Extension point
     protected HttpRoutePlanner getRoutePlanner() {
         return httpClientConfig.getHttpRoutePlanner();
@@ -170,7 +170,7 @@ public class JwClientFactory {
                 .setSocketTimeout(httpClientConfig.getReadTimeout())
                 .build();
     }
-    
+
     // Extension point
     protected NHttpClientConnectionManager getAsyncConnectionManager() {
         PoolingNHttpClientConnectionManager retval;
@@ -209,7 +209,7 @@ public class JwClientFactory {
 
         return retval;
     }
-    
+
     // Extension point
     protected HttpClientConnectionManager getConnectionManager() {
         HttpClientConnectionManager retval;
@@ -243,11 +243,11 @@ public class JwClientFactory {
 
         return retval;
     }
-    
+
     public void setHttpClientConfig(HttpClientConfig httpClientConfig) {
         this.httpClientConfig = httpClientConfig;
     }
-    
+
     // Extension point
     protected HttpClientContext createPreemptiveAuthContext(Set<HttpHost> targetHosts) {
         HttpClientContext context = HttpClientContext.create();
@@ -256,7 +256,7 @@ public class JwClientFactory {
 
         return context;
     }
-    
+
     private AuthCache createBasicAuthCache(Set<HttpHost> targetHosts) {
         AuthCache authCache = new BasicAuthCache();
         BasicScheme basicAuth = new BasicScheme();
