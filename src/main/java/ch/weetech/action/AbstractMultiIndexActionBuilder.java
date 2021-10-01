@@ -6,8 +6,8 @@ import java.util.Set;
 import com.google.common.base.Joiner;
 
 public abstract class AbstractMultiIndexActionBuilder<T extends Action, K> extends AbstractAction.Builder<T, K> {
-	
-	protected Set<String> indexNames = new LinkedHashSet<String>();
+
+    protected Set<String> indexNames = new LinkedHashSet<String>();
 
     public String getJoinedIndices() {
         if (indexNames.size() > 0) {
@@ -16,5 +16,5 @@ public abstract class AbstractMultiIndexActionBuilder<T extends Action, K> exten
             return "_all";
         }
     }
-    
+
 }
