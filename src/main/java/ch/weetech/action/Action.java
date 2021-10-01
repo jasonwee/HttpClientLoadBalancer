@@ -8,7 +8,7 @@ import ch.weetech.client.JwResult;
 import ch.weetech.client.config.ElasticsearchVersion;
 
 public interface Action<T extends JwResult> {
-	
+
     String getRestMethodName();
 
     String getURI(ElasticsearchVersion elasticsearchVersion);
