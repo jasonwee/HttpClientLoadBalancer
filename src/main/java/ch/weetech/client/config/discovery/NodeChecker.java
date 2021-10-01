@@ -23,18 +23,18 @@ import ch.weetech.client.config.exception.CouldNotConnectException;
 import ch.weetech.cluster.NodesInfo;
 
 public class NodeChecker extends AbstractScheduledService {
-	
-	private final static Logger log = LoggerFactory.getLogger(NodeChecker.class);
-	private final static String PUBLISH_ADDRESS_KEY = "http_address";
-	private final static String PUBLISH_ADDRESS_KEY_V5 = "publish_address"; // The one that under "http" node
-	private final static Pattern INETSOCKETADDRESS_PATTERN = Pattern.compile("(?:inet\\[)?(?:(?:[^:]+)?\\/)?([^:]+):(\\d+)\\]?");
-	
-	private final NodesInfo action;
-	
-	protected JwClient client;
-	protected Scheduler scheduler;
-	protected String defaultScheme;
-	protected Set<String> bootstrapServerList;
+
+    private final static Logger log = LoggerFactory.getLogger(NodeChecker.class);
+    private final static String PUBLISH_ADDRESS_KEY = "http_address";
+    private final static String PUBLISH_ADDRESS_KEY_V5 = "publish_address"; // The one that under "http" node
+    private final static Pattern INETSOCKETADDRESS_PATTERN = Pattern.compile("(?:inet\\[)?(?:(?:[^:]+)?\\/)?([^:]+):(\\d+)\\]?");
+
+    private final NodesInfo action;
+
+    protected JwClient client;
+    protected Scheduler scheduler;
+    protected String defaultScheme;
+    protected Set<String> bootstrapServerList;
     protected Set<String> discoveredServerList;
 
     public NodeChecker(JwClient jwClient, ClientConfig clientConfig) {
@@ -53,9 +53,9 @@ public class NodeChecker extends AbstractScheduledService {
         this.discoveredServerList = new LinkedHashSet<String>();
     }
 
-	@Override
-	protected void runOneIteration() throws Exception {
-		JwResult result;
+    @Override
+    protected void runOneIteration() throws Exception {
+        JwResult result;
         try {
             result = client.execute(action);
         } catch (CouldNotConnectException cnce) {
@@ -71,7 +71,7 @@ public class NodeChecker extends AbstractScheduledService {
             return;
             // do not elevate the exception since that will stop the scheduled calls.
             // throw new RuntimeException("Error executing NodesInfo!", e);
-        }  
+        }
 
         if (result.isSucceeded()) {
             LinkedHashSet<String> httpHosts = new LinkedHashSet<String>();
@@ -113,9 +113,9 @@ public class NodeChecker extends AbstractScheduledService {
             log.warn("NodesInfo request resulted in error: {}", result.getErrorMessage());
             client.setServers(bootstrapServerList);
         }
-		
-	}
-	
+
+    }
+
     protected void removeNodeAndUpdateServers(final String hostToRemove) {
         log.warn("Removing host {}", hostToRemove);
         discoveredServerList.remove(hostToRemove);
@@ -129,11 +129,11 @@ public class NodeChecker extends AbstractScheduledService {
         }
     }
 
-	@Override
-	protected Scheduler scheduler() {
-		return scheduler;
-	}
-	
+    @Override
+    protected Scheduler scheduler() {
+        return scheduler;
+    }
+
     /**
      * Converts the Elasticsearch reported publish address in the format "inet[<hostname>:<port>]" or
      * "inet[<hostname>/<hostaddress>:<port>]" to a normalized http address in the form "http://host:port".
