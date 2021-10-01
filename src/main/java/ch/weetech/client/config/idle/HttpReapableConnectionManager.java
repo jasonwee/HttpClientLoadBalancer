@@ -6,10 +6,10 @@ import org.apache.http.conn.HttpClientConnectionManager;
 import org.apache.http.nio.conn.NHttpClientConnectionManager;
 
 public class HttpReapableConnectionManager implements ReapableConnectionManager {
-	
+
     private final HttpClientConnectionManager connectionManager;
     private final NHttpClientConnectionManager nConnectionManager;
-	
+
     public HttpReapableConnectionManager(HttpClientConnectionManager connectionManager, NHttpClientConnectionManager nConnectionManager) {
         if(connectionManager == null || nConnectionManager == null) throw new IllegalArgumentException();
 
@@ -22,5 +22,5 @@ public class HttpReapableConnectionManager implements ReapableConnectionManager 
         connectionManager.closeIdleConnections(idleTimeout, unit);
         nConnectionManager.closeIdleConnections(idleTimeout, unit);
     }
-    
+
 }
