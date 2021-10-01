@@ -23,36 +23,36 @@ import ch.weetech.client.config.exception.NoServerConfiguredException;
 import ch.weetech.client.config.idle.IdleConnectionReaper;
 
 public abstract class AbstractJwClient implements JwClient {
-	
+
     public static final String ELASTIC_SEARCH_DATE_FORMAT = "yyyy-MM-dd'T'HH:mm:ssZ";
-	
+
     protected Gson gson = new GsonBuilder()
             .setDateFormat(ELASTIC_SEARCH_DATE_FORMAT)
             .create();
-    
+
     private final static Logger log = LoggerFactory.getLogger(AbstractJwClient.class);
-    
+
     private final AtomicReference<ServerPool> serverPoolReference =
             new AtomicReference<ServerPool>(new ServerPool(ImmutableSet.<String>of()));
     private NodeChecker nodeChecker;
     private IdleConnectionReaper idleConnectionReaper;
     private boolean requestCompressionEnabled;
-    
+
     public void setNodeChecker(NodeChecker nodeChecker) {
         this.nodeChecker = nodeChecker;
     }
-	
+
     public void setIdleConnectionReaper(IdleConnectionReaper idleConnectionReaper) {
         this.idleConnectionReaper = idleConnectionReaper;
     }
-    
+
     /**
      * @throws io.searchbox.client.config.exception.NoServerConfiguredException
      */
     protected String getNextServer() {
         return serverPoolReference.get().getNextServer();
     }
-	
+
     protected String getRequestURL(String elasticSearchServer, String uri) {
         StringBuilder sb = new StringBuilder(elasticSearchServer);
 
@@ -69,7 +69,7 @@ public abstract class AbstractJwClient implements JwClient {
     public void setRequestCompressionEnabled(boolean requestCompressionEnabled) {
         this.requestCompressionEnabled = requestCompressionEnabled;
     }
-    
+
     public void setServers(Set<String> servers) {
         if (servers.equals(serverPoolReference.get().getServers())) {
             if (log.isDebugEnabled()) {
@@ -88,7 +88,7 @@ public abstract class AbstractJwClient implements JwClient {
             log.warn("No servers are currently available to connect.");
         }
     }
-    
+
     @VisibleForTesting
     Set<String> scrubServerURIs(Set<String> servers) {
         final ImmutableSet.Builder<String> scrubbedServers = ImmutableSet.builder();
@@ -109,7 +109,7 @@ public abstract class AbstractJwClient implements JwClient {
         }
         return scrubbedServers.build();
     }
-    
+
     /**
      * {@inheritDoc}
      */
@@ -133,7 +133,7 @@ public abstract class AbstractJwClient implements JwClient {
             idleConnectionReaper.awaitTerminated();
         }
     }
-    
+
     private static final class ServerPool {
         private final List<String> serversRing;
         private final AtomicInteger nextServerIndex = new AtomicInteger(0);
