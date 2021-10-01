@@ -26,23 +26,23 @@ import ch.weetech.client.config.ElasticsearchVersion;
 import ch.weetech.params.Parameters;
 
 public abstract class AbstractAction<T extends JwResult> implements Action<T> {
-	
-	public static String CHARSET = "utf-8";
-	
-	protected final static Logger log = LoggerFactory.getLogger(AbstractAction.class);
-	
-	protected String indexName;
-	protected String typeName;
-	protected String nodes;
-	protected Object payload;
-	
-	private final ConcurrentMap<String, Object> headerMap = new ConcurrentHashMap<String, Object>();
-	private final Multimap<String, Object> parameterMap = LinkedHashMultimap.create();
-	private final Set<String> cleanApiParameters = new LinkedHashSet<String>();
 
-	@Override
-	public abstract String getRestMethodName();
-	
+    public static String CHARSET = "utf-8";
+
+    protected final static Logger log = LoggerFactory.getLogger(AbstractAction.class);
+
+    protected String indexName;
+    protected String typeName;
+    protected String nodes;
+    protected Object payload;
+
+    private final ConcurrentMap<String, Object> headerMap = new ConcurrentHashMap<String, Object>();
+    private final Multimap<String, Object> parameterMap = LinkedHashMultimap.create();
+    private final Set<String> cleanApiParameters = new LinkedHashSet<String>();
+
+    @Override
+    public abstract String getRestMethodName();
+
     public AbstractAction() {
     }
 
@@ -62,9 +62,9 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
             nodes = ((AbstractMultiINodeActionBuilder) builder).getJoinedNodes();
         }
     }
-    
-	@Override
-	public String getData(Gson gson) {
+
+    @Override
+    public String getData(Gson gson) {
         if (payload == null) {
             return null;
         } else if (payload instanceof String) {
@@ -72,7 +72,7 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
         } else {
             return gson.toJson(payload);
         }
-	}
+    }
 
     protected T createNewElasticSearchResult(T result, String responseBody, int statusCode, String reasonPhrase, Gson gson) {
         JsonObject jsonMap = parseResponseBody(responseBody);
@@ -98,18 +98,18 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
         return result;
     }
 
-	@Override
-	public String getPathToResult() {
-		return null;
-	}
-	
+    @Override
+    public String getPathToResult() {
+        return null;
+    }
+
     protected String buildURI(ElasticsearchVersion elasticsearchVersion) {
         StringBuilder sb = new StringBuilder();
 
         try {
             //if (StringUtils.isNotBlank(indexName)) {
-        	if (indexName != null && !indexName.isEmpty()) {
-            	
+            if (indexName != null && !indexName.isEmpty()) {
+
                 sb.append(URLEncoder.encode(indexName, CHARSET));
 
                 /*
@@ -136,11 +136,11 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
         return sb.toString();
     }
 
-	@Override
-	public Map<String, Object> getHeaders() {
-		return headerMap;
-	}
-	
+    @Override
+    public Map<String, Object> getHeaders() {
+        return headerMap;
+    }
+
     @Override
     public String getURI(ElasticsearchVersion elasticsearchVersion) {
         String finalUri = buildURI(elasticsearchVersion);
@@ -155,8 +155,7 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
         }
         return finalUri;
     }
-    
-    
+
     protected String buildQueryString() throws UnsupportedEncodingException {
         StringBuilder queryString = new StringBuilder();
 
@@ -183,7 +182,7 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
     protected boolean isHttpSuccessful(int httpCode) {
         return (httpCode / 100) == 2;
     }
-	
+
     protected JsonObject parseResponseBody(String responseBody) {
         if (responseBody == null || responseBody.trim().isEmpty()) {
             return new JsonObject();
@@ -196,7 +195,7 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
             throw new JsonSyntaxException("Response did not contain a JSON Object");
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     protected static abstract class Builder<T extends Action, K> {
         protected Multimap<String, Object> parameters = LinkedHashMultimap.<String, Object>create();
