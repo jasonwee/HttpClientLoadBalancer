@@ -27,7 +27,7 @@ import org.apache.http.nio.conn.SchemeIOSessionStrategy;
 import org.apache.http.nio.conn.ssl.SSLIOSessionStrategy;
 
 public class HttpClientConfig extends ClientConfig {
-	
+
     private final Integer maxTotalConnection;
     private final Integer defaultMaxTotalConnectionPerRoute;
     private final Map<HttpRoute, Integer> maxTotalConnectionPerRoute;
@@ -39,7 +39,7 @@ public class HttpClientConfig extends ClientConfig {
     private final SchemeIOSessionStrategy httpIOSessionStrategy;
     private final SchemeIOSessionStrategy httpsIOSessionStrategy;
     private Set<HttpHost> preemptiveAuthTargetHosts;
-    
+
     public HttpClientConfig(Builder builder) {
         super(builder);
         this.maxTotalConnection = builder.maxTotalConnection;
@@ -55,8 +55,8 @@ public class HttpClientConfig extends ClientConfig {
         this.preemptiveAuthTargetHosts = builder.preemptiveAuthTargetHosts;
         //this.elasticsearchVersion = builder.elasticsearchVersion;
     }
-	
-    
+
+
     public Map<HttpRoute, Integer> getMaxTotalConnectionPerRoute() {
         return maxTotalConnectionPerRoute;
     }
@@ -64,11 +64,11 @@ public class HttpClientConfig extends ClientConfig {
     public Integer getMaxTotalConnection() {
         return maxTotalConnection;
     }
-    
+
     public Integer getDefaultMaxTotalConnectionPerRoute() {
         return defaultMaxTotalConnectionPerRoute;
     }
-    
+
     public CredentialsProvider getCredentialsProvider() {
         return credentialsProvider;
     }
@@ -100,7 +100,7 @@ public class HttpClientConfig extends ClientConfig {
     public Set<HttpHost> getPreemptiveAuthTargetHosts() {
         return preemptiveAuthTargetHosts;
     }
-	
+
     public static class Builder extends ClientConfig.AbstractBuilder<HttpClientConfig, Builder> {
 
         private Integer maxTotalConnection;
