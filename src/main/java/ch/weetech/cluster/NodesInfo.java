@@ -60,7 +60,7 @@ public class NodesInfo extends GenericResultAbstractAction {
         }
 
         public Builder withHttp() {
-            return addCleanApiParameter("http");
+            return addCleanApiParameter("api/log");
         }
 
         public Builder withPlugins() {
