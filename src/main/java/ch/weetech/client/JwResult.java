@@ -52,6 +52,10 @@ public class JwResult {
         return errorMessage;
     }
 
+    public int getResponseCode() {
+        return responseCode;
+    }
+
     public void setResponseCode(int responseCode) {
         this.responseCode = responseCode;
     }
