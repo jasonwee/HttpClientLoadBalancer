@@ -28,6 +28,9 @@ public class ClientConfig {
     private boolean isMultiThreaded;
     private boolean isDiscoveryEnabled;
     private String discoveryFilter;
+    private String discoveryPath;
+    private String discoveryRestMethod;
+    private String discoveryPayload;
     private boolean isRequestCompressionEnabled;
     private int connTimeout;
     private int readTimeout;
@@ -47,6 +50,9 @@ public class ClientConfig {
         this.isMultiThreaded = builder.isMultiThreaded;
         this.isDiscoveryEnabled = builder.isDiscoveryEnabled;
         this.discoveryFilter = builder.discoveryFilter;
+        this.discoveryPath = builder.discoveryPath;
+        this.discoveryRestMethod = builder.discoveryRestMethod;
+        this.discoveryPayload = builder.discoveryPayload;
         this.isRequestCompressionEnabled = builder.isRequestCompressionEnabled;
         this.discoveryFrequency = builder.discoveryFrequency;
         this.discoveryFrequencyTimeUnit = builder.discoveryFrequencyTimeUnit;
@@ -72,6 +78,18 @@ public class ClientConfig {
 
     public String getDiscoveryFilter() {
         return discoveryFilter;
+    }
+
+    public String getDiscoveryPath() {
+        return discoveryPath;
+    }
+
+    public String getDiscoveryRestMethod() {
+        return discoveryRestMethod;
+    }
+
+    public String getDiscoveryPayload() {
+        return discoveryPayload;
     }
 
     public Long getDiscoveryFrequency() {
@@ -179,6 +197,9 @@ public class ClientConfig {
         protected Set<String> serverList = new LinkedHashSet<String>();
         protected boolean isMultiThreaded;
         protected boolean isDiscoveryEnabled;
+        protected String discoveryPath;
+        protected String discoveryRestMethod;
+        protected String discoveryPayload;
         protected String discoveryFilter;
         protected boolean isRequestCompressionEnabled;
         protected long discoveryFrequency = 10L;
@@ -235,6 +256,21 @@ public class ClientConfig {
 
         public K discoveryEnabled(boolean isDiscoveryEnabled) {
             this.isDiscoveryEnabled = isDiscoveryEnabled;
+            return (K) this;
+        }
+
+        public K discoveryPath(String path) {
+            this.discoveryPath = path;
+            return (K) this;
+        }
+
+        public K discoveryRestMethod(String discoveryRestMethod) {
+            this.discoveryRestMethod = discoveryRestMethod;
+            return (K) this;
+        }
+
+        public K discoveryPayload(String discoveryPayload) {
+            this.discoveryPayload = discoveryPayload;
             return (K) this;
         }
 
