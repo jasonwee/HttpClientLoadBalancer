@@ -15,16 +15,16 @@ public class Put extends SingleResultAbstractDocumentTargetedAction {
     }
 
     public static class Builder extends SingleResultAbstractDocumentTargetedAction.Builder<Put, Builder> {
-        private final Object query;
+        private final String query;
 
-        public Builder(String index, String type, String id, Object query) {
+        public Builder(String index, String type, String id, String query) {
             this.index(index);
             this.type(type);
             this.id(id);
             this.query = query;
         }
 
-        public Builder(String path, Object query) {
+        public Builder(String path, String query) {
             this.path(path);
             this.query = query;
         }
