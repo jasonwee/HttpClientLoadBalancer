@@ -49,7 +49,9 @@ public abstract class AbstractAction<T extends JwResult> implements Action<T> {
     protected String indexName;
     protected String typeName;
     protected String nodes;
-    protected Object payload;
+    protected String payload;
+    protected String restMethod;
+    protected String path;
 
     private final ConcurrentMap<String, Object> headerMap = new ConcurrentHashMap<String, Object>();
     private final Multimap<String, Object> parameterMap = LinkedHashMultimap.create();
