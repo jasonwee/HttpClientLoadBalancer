@@ -53,10 +53,11 @@ public class NodeChecker extends AbstractScheduledService {
     protected Set<String> discoveredServerList;
 
     public NodeChecker(JwClient jwClient, ClientConfig clientConfig) {
-        action = new NodesInfo.Builder()
+        action = new NodesInfo.Builder(clientConfig.getDiscoveryPayload(), clientConfig.getDiscoveryRestMethod(), clientConfig.getDiscoveryPath())
                 .withHttp()
                 .addNode(clientConfig.getDiscoveryFilter())
                 .build();
+
         this.client = jwClient;
         this.defaultScheme = clientConfig.getDefaultSchemeForDiscoveredNodes();
         this.scheduler = Scheduler.newFixedDelaySchedule(
@@ -89,6 +90,7 @@ public class NodeChecker extends AbstractScheduledService {
         }
 
         if (result.isSucceeded()) {
+            /*
             LinkedHashSet<String> httpHosts = new LinkedHashSet<String>();
 
             JsonObject jsonMap = result.getJsonObject();
@@ -124,6 +126,7 @@ public class NodeChecker extends AbstractScheduledService {
             }
             discoveredServerList = httpHosts;
             client.setServers(discoveredServerList);
+            */
         } else {
             log.warn("NodesInfo request resulted in error: {}", result.getErrorMessage());
             client.setServers(bootstrapServerList);
