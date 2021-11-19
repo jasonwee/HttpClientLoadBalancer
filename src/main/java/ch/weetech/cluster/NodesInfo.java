@@ -22,14 +22,27 @@ public class NodesInfo extends GenericResultAbstractAction {
 
     protected NodesInfo(Builder builder) {
         super(builder);
+        this.payload = builder.payload;
+        this.restMethod = builder.restMethod;
+        this.path = builder.path;
     }
     
     @Override
     public String getRestMethodName() {
-        return "GET";
+        return this.restMethod;
     }
 
     public static class Builder extends AbstractMultiINodeActionBuilder<NodesInfo, Builder> {
+
+        private final String payload;
+        private final String restMethod;
+        private final String path;
+
+        public Builder(String payload, String restMethod, String path) {
+            this.payload = payload;
+            this.restMethod = restMethod;
+            this.path = path;
+        }
 
         public Builder withSettings() {
             return addCleanApiParameter("settings");
@@ -60,7 +73,7 @@ public class NodesInfo extends GenericResultAbstractAction {
         }
 
         public Builder withHttp() {
-            return addCleanApiParameter("api/log");
+            return addCleanApiParameter(this.path);
         }
 
         public Builder withPlugins() {
